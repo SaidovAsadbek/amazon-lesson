@@ -1,9 +1,14 @@
 import React from "react";
 import "../css/PurchaseCart.css";
 import "../css/PurchaseProduct.css";
-import Subtotal from './Subtotal';
+import Subtotal from "./Subtotal";
+import { useStateValue } from "./StateProvider";
+import PurchaseProduct from "./PurchaseProduct";
 
 const PurchaseCart = () => {
+    const [{ basket }, dispatch] = useStateValue();
+    console.log(basket, "cart");
+
     return (
         <div className="purchase-container">
             <div className="row">
@@ -13,7 +18,6 @@ const PurchaseCart = () => {
                     <div className="active-cart">
                         <div className="cart-inner">
                             <div className="cart-header">
-                                
                                 <div className="flex">
                                     <h2>Your Shopping Cart</h2>
                                     <div className="user-panel">
@@ -28,12 +32,12 @@ const PurchaseCart = () => {
                                 <a href="/" className="selected-items">
                                     DeSelect all items
                                 </a>
-
                             </div>
                             <div className="active-cart-price">
                                 <h4>Price</h4>
                             </div>
                             {/* [] items */}
+                            <PurchaseProduct />
                         </div>
                     </div>
                 </div>

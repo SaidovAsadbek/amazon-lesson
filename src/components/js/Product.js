@@ -6,7 +6,7 @@ import { useStateValue } from "./StateProvider";
 // icons
 import { StarBorderOutlined } from "@mui/icons-material";
 
-const Product = ({ id, title, price, rating, productImage }) => {
+const Product = ({ id, title, price, rating, productImage, color }) => {
     const [{ basket }, dispatch] = useStateValue();
 
     const addToBasket = () => {
@@ -18,6 +18,7 @@ const Product = ({ id, title, price, rating, productImage }) => {
                 price,
                 rating,
                 productImage,
+                color,
             },
         });
     };

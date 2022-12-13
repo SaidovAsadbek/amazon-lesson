@@ -7,7 +7,6 @@ import PurchaseProduct from "./PurchaseProduct";
 
 const PurchaseCart = () => {
     const [{ basket }, dispatch] = useStateValue();
-    console.log(basket, "cart");
 
     return (
         <div className="purchase-container">
@@ -36,8 +35,17 @@ const PurchaseCart = () => {
                             <div className="active-cart-price">
                                 <h4>Price</h4>
                             </div>
-                            {/* [] items */}
-                            <PurchaseProduct />
+                            {basket.map((item, i) => (
+                                <PurchaseProduct
+                                    key={i}
+                                    id={item.id}
+                                    title={item.title}
+                                    price={item.price}
+                                    productImage={item.productImage}
+                                    rating={item.rating}
+                                    color={item.color}
+                                />
+                            ))}
                         </div>
                     </div>
                 </div>

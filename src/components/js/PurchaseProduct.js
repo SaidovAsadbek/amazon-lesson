@@ -1,8 +1,11 @@
 import { StarBorderOutlined } from "@mui/icons-material";
 import React from "react";
 import "../css/PurchaseProduct.css";
+import { useStateValue } from "./StateProvider";
 
-const PurchaseProduct = () => {
+const PurchaseProduct = ({ id, title, price, productImage, rating, color }) => {
+    const [{ basket }, dispatch] = useStateValue();
+
     /// >>>>> props
     return (
         <div className="shopping__cartItems">
@@ -15,20 +18,36 @@ const PurchaseProduct = () => {
                             </label>
                             <div className="check-image">
                                 <a href="/">
-                                    <img src="" alt="Product-image" />
+                                    <img
+                                        src={productImage}
+                                        alt="ProductImage"
+                                    />
                                 </a>
                             </div>
                         </div>
                         <div className="content-text">
                             <a href="/" className="context-text-title">
-                                <h2>Title</h2>
+                                <h2>{title}</h2>
                             </a>
                             <div className="content-color">
                                 <div className="product-color">
-                                    <strong>Color:</strong>
-                                    <span>Gold</span>
+                                    {color ? (
+                                        <>
+                                            <strong>Color:</strong>
+                                            <span>{color}</span>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
+
                                     <div className="product__rating">
-                                        <StarBorderOutlined />
+                                        {Array(rating)
+                                            .fill()
+                                            .map((_, i) => (
+                                                <p key={i}>
+                                                    <StarBorderOutlined />
+                                                </p>
+                                            ))}
                                     </div>
                                 </div>
                                 <div className="product-model">
@@ -40,7 +59,9 @@ const PurchaseProduct = () => {
                                         QTY: 1 <span>|</span>
                                     </li>
                                     <li className="link">
-                                        <button>Delete <span>|</span></button>
+                                        <button>
+                                            Delete <span>|</span>
+                                        </button>
                                     </li>
                                     <li className="link">
                                         <a href="/compare">
@@ -52,9 +73,9 @@ const PurchaseProduct = () => {
                         </div>
                         <div className="content-price">
                             <small>
-                                <strong>ID: 1515-554-5545</strong>
+                                <strong>ID: {id}</strong>
                             </small>
-                            <p>$price</p>
+                            <p>${price}</p>
                         </div>
                     </div>
                 </div>

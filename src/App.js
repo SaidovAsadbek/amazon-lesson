@@ -6,7 +6,7 @@ import "./App.css";
 // all imported components
 import Header from "./components/js/Header";
 import Home from "./components/js/Home";
-import PurchaseCart from './components/js/PurchaseCart';
+import PurchaseCart from "./components/js/PurchaseCart";
 
 function App() {
     return (
@@ -14,6 +14,7 @@ function App() {
             <div className="App">
                 <Routes>
                     <Route
+                        exact
                         path="/"
                         element={
                             <>
@@ -22,12 +23,16 @@ function App() {
                             </>
                         }
                     />
-					<Route path="/purchase/cart" element={
-						<>
-							<Header />
-							<PurchaseCart />
-						</>
-					} />
+                    <Route
+                        exact
+                        path="/purchase/cart"
+                        element={
+                            <>
+                                <Header />
+                                <PurchaseCart />
+                            </>
+                        }
+                    />
                 </Routes>
             </div>
         </Router>

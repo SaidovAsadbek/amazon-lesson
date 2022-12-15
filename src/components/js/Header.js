@@ -9,7 +9,11 @@ import {
     Search,
 } from "@mui/icons-material";
 
+import { useStateValue } from "./StateProvider";
+
 const Header = () => {
+    const [{ basket }, dispatch] = useStateValue();
+
     return (
         <div className="header">
             <NavLink to="/" className="brand">
@@ -51,7 +55,9 @@ const Header = () => {
                 </NavLink>
                 <NavLink to="/purchase/cart" className="header__optionBasket">
                     <AddShoppingCartOutlined />
-                    <span className="header__optionLineTwo">0</span>
+                    <span className="header__optionLineTwo">
+                        {basket.length}
+                    </span>
                 </NavLink>
             </div>
         </div>

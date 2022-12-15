@@ -6,6 +6,14 @@ import { useStateValue } from "./StateProvider";
 const PurchaseProduct = ({ id, title, price, productImage, rating, color }) => {
     const [{ basket }, dispatch] = useStateValue();
 
+    const removeFromBasket = () => {
+        // remove the item from the basket!!
+        dispatch({
+            type: "REMOVE_FROM_BASKET",
+            id,
+        });
+    };
+
     /// >>>>> props
     return (
         <div className="shopping__cartItems">
@@ -59,7 +67,7 @@ const PurchaseProduct = ({ id, title, price, productImage, rating, color }) => {
                                         QTY: 1 <span>|</span>
                                     </li>
                                     <li className="link">
-                                        <button>
+                                        <button onClick={removeFromBasket}>
                                             Delete <span>|</span>
                                         </button>
                                     </li>

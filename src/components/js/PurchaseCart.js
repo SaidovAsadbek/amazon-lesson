@@ -6,7 +6,8 @@ import { useStateValue } from "./StateProvider";
 import PurchaseProduct from "./PurchaseProduct";
 
 const PurchaseCart = () => {
-    const [{ basket }, dispatch] = useStateValue();
+    const [{ basket, user }, dispatch] = useStateValue();
+
 
     return (
         <div className="purchase-container">
@@ -20,11 +21,20 @@ const PurchaseCart = () => {
                                 <div className="flex">
                                     <h2>Your Shopping Cart</h2>
                                     <div className="user-panel">
-                                        <h2>Hello, user@gmail.com</h2>
-                                        <small>
-                                            <strong>ID:</strong>
-                                            4545454-454-455
-                                        </small>
+                                        <h2>
+                                            Hello,{" "}
+                                            {user
+                                                ? user.email
+                                                : "Guest. You aren't entered account yet."}
+                                        </h2>
+                                        {user ? (
+                                            <small>
+                                                <strong>ID:</strong>
+                                                {user ? user.uid : ""}
+                                            </small>
+                                        ) : (
+                                            <></>
+                                        )}
                                     </div>
                                 </div>
 

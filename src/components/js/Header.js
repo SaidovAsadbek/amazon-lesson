@@ -10,9 +10,18 @@ import {
 } from "@mui/icons-material";
 
 import { useStateValue } from "./StateProvider";
+import { auth } from "./firebase";
 
 const Header = () => {
-    const [{ basket }, dispatch] = useStateValue();
+    const [{ basket, user }, dispatch] = useStateValue();
+
+    const handleLogout = () => {
+        if (user) {
+            auth.signOut().then(() => {
+                dispatch({ type: "SET_USER", user: null });
+            });
+        }
+    };
 
     return (
         <div className="header">
@@ -41,9 +50,16 @@ const Header = () => {
                 </button>
             </form>
             <div className="header__nav">
-                <NavLink to="/" className="header__option">
-                    <span className="header__optionLineOne">Hello, Guest</span>
-                    <span className="header__optionLineTwo">Sign In</span>
+                <NavLink
+                    to={!user && "/register/login"}
+                    onClick={handleLogout}
+                    className="header__option">
+                    <span className="header__optionLineOne">
+                        Hello, {!user ? "Guest" : user.email}
+                    </span>
+                    <span className="header__optionLineTwo">
+                        {user ? "Sign Out" : "Sign In"}
+                    </span>
                 </NavLink>
                 <NavLink to="/" className="header__option">
                     <span className="header__optionLineOne">Returns</span>

@@ -3,6 +3,8 @@ import "../css/Home.css";
 import Product from "./Product";
 
 const Home = () => {
+
+    // static state
     return (
         <div className="home">
             <div className="home__container">

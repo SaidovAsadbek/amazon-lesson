@@ -13,12 +13,22 @@ import Login from "./components/js/Login";
 import { auth } from "./components/js/firebase";
 import { useStateValue } from "./components/js/StateProvider";
 
+// payments
+import Payment from "./components/js/Payment";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const PUBLISHED_KEY =
+    "pk_test_51LURq3HnZqhZ7uCLhAU63mYCOIzW9iEdicMsvFGHuSNdVKXl0cSjLya9FEyVEH1jEkQa0564y6sJOlDxFMWli7RY00ZmTd83TE";
+
+const stripePromise = loadStripe(PUBLISHED_KEY);
+
 function App() {
     const [{ basket }, dispatch] = useStateValue();
 
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
-            console.log(user, "User");
+            // console.log(user, "User");
 
             if (user) {
                 // The user just logged in
@@ -61,6 +71,18 @@ function App() {
                         }
                     />
                     <Route exact path="/register/login" element={<Login />} />
+                    <Route
+                        exact
+                        path="/purchase/checkout"
+                        element={
+                            <>
+                                <Header />
+                                <Elements stripe={stripePromise}>
+                                    <Payment />
+                                </Elements>
+                            </>
+                        }
+                    />
                     <Route
                         path="*"
                         element={

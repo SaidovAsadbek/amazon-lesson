@@ -17,6 +17,7 @@ import { useStateValue } from "./components/js/StateProvider";
 import Payment from "./components/js/Payment";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import Orders from "./components/js/Orders";
 
 const PUBLISHED_KEY =
     "pk_test_51LURq3HnZqhZ7uCLhAU63mYCOIzW9iEdicMsvFGHuSNdVKXl0cSjLya9FEyVEH1jEkQa0564y6sJOlDxFMWli7RY00ZmTd83TE";
@@ -90,6 +91,16 @@ function App() {
                                 <h1>404 Not Found</h1>
                                 <p>Several International Error!1</p>
                                 <a href="/">Go back</a>
+                            </>
+                        }
+                    />
+                    <Route
+                        exact
+                        path="/orders"
+                        element={
+                            <>
+                                <Header />
+                                <Orders />
                             </>
                         }
                     />

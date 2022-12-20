@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 import { getBasketTotal } from "./reducer";
 import CurrencyFormat from "react-currency-format";
 import PurchaseProduct from "./PurchaseProduct";
 import "../css/Payment.css";
 import api from "./api";
+import axios from "axios";
 
 const Payment = () => {
     const [{ basket, user }, dispatch] = useStateValue();
 
     const stripe = useStripe();
     const elements = useElements();
+    const navigate = useNavigate();
 
     const [succeeded, setSucceeded] = useState(false);
     const [processing, setProcessing] = useState("");
@@ -26,7 +28,10 @@ const Payment = () => {
                 method: "POST",
                 url: `/payment/create?total=${getBasketTotal(basket) * 100}`,
             })
-                .then((response) => console.log(response))
+                .then((response) => {
+                    // console.log(response);
+                    setClientSecret(response.data.clientSecret);
+                })
                 .catch((error) => console.log(error));
         };
         getClientSecret();
@@ -35,6 +40,22 @@ const Payment = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setProcessing(true);
+
+        const payload = await stripe
+            .confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: elements.getElement(CardElement),
+                },
+            })
+            .then((response) => {
+                // console.log("Payload", response);
+                setSucceeded(true);
+                setError(null);
+                setProcessing(false);
+
+                navigate("/orders");
+            })
+            .catch((error) => console.log(error));
     };
 
     const handleChange = (e) => {

@@ -2,6 +2,8 @@ import { StarBorderOutlined } from "@mui/icons-material";
 import React from "react";
 import "../css/PurchaseProduct.css";
 import { useStateValue } from "./StateProvider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PurchaseProduct = ({ id, title, price, productImage, rating, color }) => {
     const [{ basket }, dispatch] = useStateValue();
@@ -12,11 +14,13 @@ const PurchaseProduct = ({ id, title, price, productImage, rating, color }) => {
             type: "REMOVE_FROM_BASKET",
             id,
         });
+        toast("Item removed from basket");
     };
 
     /// >>>>> props
     return (
         <div className="shopping__cartItems">
+            <ToastContainer />
             <div className="basketItem">
                 <div className="activeCartView">
                     <div className="active-cart-content">

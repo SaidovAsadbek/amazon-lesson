@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "../css/Header.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // icons
 import {
@@ -19,12 +21,14 @@ const Header = () => {
         if (user) {
             auth.signOut().then(() => {
                 dispatch({ type: "SET_USER", user: null });
+                toast("Logged out!");
             });
         }
     };
 
     return (
         <div className="header">
+            <ToastContainer />
             <NavLink to="/" className="brand">
                 <img
                     className="header_logo"
@@ -61,7 +65,7 @@ const Header = () => {
                         {user ? "Sign Out" : "Sign In"}
                     </span>
                 </NavLink>
-                <NavLink to="/" className="header__option">
+                <NavLink to="/orders" className="header__option">
                     <span className="header__optionLineOne">Returns</span>
                     <span className="header__optionLineTwo">& Orders</span>
                 </NavLink>

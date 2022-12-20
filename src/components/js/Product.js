@@ -1,5 +1,7 @@
 import React from "react";
 import "../css/Product.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { useStateValue } from "./StateProvider";
 
@@ -21,12 +23,14 @@ const Product = ({ id, title, price, rating, productImage, color }) => {
                 color,
             },
         });
+        toast("Added to basket");
     };
 
     // console.log(basket);
 
     return (
         <div className="product" id={id}>
+            <ToastContainer />
             <div className="product__info">
                 <div className="product__title">
                     <h2>{title}</h2>

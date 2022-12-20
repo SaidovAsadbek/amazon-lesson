@@ -74,6 +74,7 @@
     background-color: transparent;
     border: none;
     outline: none;
+    cursor: pointer;
 }
 
 .product__buttons button,

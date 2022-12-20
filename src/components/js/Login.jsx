@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "../css/Login.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { auth } from "./firebase";
+import { auth, googleProvider } from "./firebase";
 import { InfinitySpin } from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -28,6 +30,14 @@ const Login = () => {
                     alert(error.message);
                 });
         }, 4000);
+        toast("You have successfully signed in!");
+    };
+
+    const signInWithGoogle = (e) => {
+        e.preventDefault();
+        auth.signInWithPopup(googleProvider)
+            .then((result) => navigate("/"))
+            .catch((error) => console.log(error.message));
     };
 
     // register
@@ -39,10 +49,12 @@ const Login = () => {
                 navigate("/register/login");
             })
             .catch((error) => alert(error.message));
+        toast("You have successfully created your account!");
     };
 
     return (
         <div className="login">
+            <ToastContainer />
             <div className="login-link">
                 <NavLink to="/" className="login-page-router">
                     <img
@@ -96,6 +108,11 @@ const Login = () => {
 
                 <button onClick={register} className="login__registerButton">
                     Create Your Amazon Account
+                </button>
+                <button
+                    onClick={signInWithGoogle}
+                    className="login__registerButton">
+                    Sign In with Google
                 </button>
             </div>
         </div>
